@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Blog</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+    <div class="container">
+      <h1 class="mt-4"><%= blog.title %></h1>
+      <img
+        class="mt-3"
+        style="object-fit: contain !important; width: 70% !important"
+        src="<%= blog.coverImage %>"
+        alt="no image added"
+      />
+      <p class="mt-4 lh-base"><%= blog.body %></p>
+    </div>
+    <div class="container">
+      <img src="<%= blog.createdBy.profileImageURL %>" width="50px" />
+      <span class="font-monospace"> <%= blog.createdBy.fullName %> </span>
+    </div>
+
+    <!-- what is locals in ejs? =>  in ejs the is the object which is sent when the redirect page is mentioned matlab ki ye locals me hum jo extra data or object bhejte hai render ke time pe wo iss locals me store hota hai as object ab agr bina 'locals' likhe hum agr sidha uss key naam likhenge or agr wo key present nhi hua to wo error dega while agr 'locals.keyName' kar ke use karenge to present nahi bhi hoga to error nhi dega -->
+
+    <!-- Comments -->
+    <div class="container mt-4">
+      <h2>Comments (<%= comments.length %>)</h2>
+      <% if (locals.user) { %>
+      <form action="/blog/comment/<%= blog._id %>" method="post">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="comment"
+            name="content"
+            aria-describedby="emailHelp"
+            placeholder="Enter your comment here"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+      <% } %> 
+      <% comments.forEach(comment => { %>
+      <div class="rounded border p-4 mt-4">
+        <img src="<%= comment.createdBy.profileImageURL %>" width="40px" />
+        <span class="font-monospace"> <%= comment.createdBy.fullName %> </span>
+        <p class="mt-2"><%= comment.content %></p>
+        <span> <%= comment.createdAt.toLocaleString() %> </span>
+      </div>
+      <% }) %>
+    </div>
+    <%- include('./partials/script') %>
+  </body>
+</html>
