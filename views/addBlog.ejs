@@ -7,10 +7,11 @@
   <style></style>
   <body>
     <%- include('./partials/nav') %>
-
     <div class="container mt-3">
       <h1 class="text-decoration-underline fs-2">Add New Blog</h1>
-      <form action="/blog" method="post" enctype="multipart/form-data">
+      <!--  enctype="multipart/form-data" -->
+
+      <form action="/blog" method="post" >
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input
@@ -33,12 +34,13 @@
         </div>
 
         <div class="mb-3">
-          <label for="coverImage" class="form-label mb-2">Upload Image</label>
+          <label for="coverImage" class="form-label mb-2">Enter Image URL</label>
           <input
-            type="file"
+            type="text"
             class="form-control"
-            name="coverImage"
+            name="imgURL"
             id="coverImage"
+            placeholder="https://example.com/image.jpg"
           />
         </div>
 
